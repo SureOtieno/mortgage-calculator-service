@@ -5,17 +5,39 @@ import java.util.Scanner;
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
+        final byte MONTHS_IN_YEAR = 12;
+        final byte PERCENT = 100;
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Principal: ");
-        double principal = scanner.nextDouble();
-        System.out.print("Annual Interest Rate: ");
-        double interest = scanner.nextDouble();
-        System.out.print("Period (Years): ");
-        int period = scanner.nextInt();
-        double factor = (Math.pow((1 + ((interest/100)/12)), (period * 12)));
-        double mortgagor = principal * ((((interest/100)/12) * factor)/(factor - 1));
-        String mortgage = NumberFormat.getCurrencyInstance().format(mortgagor);
-        System.out.println("Mortgage Payments: " +  mortgage);
+        int principal = 0;
+        float interest = 0;
+        int period = 0;
+        while (true) {
+            System.out.print("Principal: ");
+            principal = scanner.nextInt();
+            if (principal >= 1_000 && principal <= 1_000_000)
+                break;
+            System.out.println("Enter a value between 1,000 and 1,000,000");
+        }
+
+        while (true){ System.out.print("Annual Interest Rate: ");
+            interest = scanner.nextFloat();
+            if (interest > 0 && interest <= 30)
+                break;
+            System.out.println("Value must be between 0 and 30");
+}
+        while (true){
+            System.out.print("Period (Years): ");
+            period = scanner.nextInt();
+            if (period >= 1 && period <= 30)
+                break;
+            System.out.println("Enter a value between 1 and 30");
+        }
+
+            double factor = (Math.pow((1 + ((interest / PERCENT) / MONTHS_IN_YEAR)), (period * MONTHS_IN_YEAR)));
+            double mortgagor = principal * ((((interest / PERCENT) / MONTHS_IN_YEAR) * factor) / (factor - 1));
+            String mortgage = NumberFormat.getCurrencyInstance().format(mortgagor);
+            System.out.println("Mortgage Payments: " + mortgage);
+
 
 
     }
